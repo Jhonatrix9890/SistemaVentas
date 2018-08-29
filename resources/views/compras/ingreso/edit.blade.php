@@ -2,7 +2,7 @@
 @section ('contenido')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Editar Cliente: {{ $persona->nombre}}</h3>
+			<h3>Editar Proveedor: {{ $persona->nombre}}</h3>
 			@if (count($errors)>0)
 			<div class="alert alert-danger">
 				<ul>
@@ -14,7 +14,7 @@
 			@endif
 		</div>
 	</div>
-	{!!Form::model($persona,['method'=>'PATCH','route'=>['cliente.update',$persona->idpersona]])!!}      
+	{!!Form::model($persona,['method'=>'PATCH','route'=>['proveedor.update',$persona->idpersona]])!!}      
 	{{Form::token()}}
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

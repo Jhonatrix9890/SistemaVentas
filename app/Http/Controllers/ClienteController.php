@@ -60,11 +60,12 @@ class ClienteController extends Controller
     public function store(PersonaRequest $request)
     {
         $persona=new Persona;
-        $persona->tipoPersona=$request->get('Cliente');
+        $persona->tipoPersona='Cliente';
         $persona->nombre=$request->get('nombre');
         $persona->tipoDocumento=$request->get('tipoDocumento');
         $persona->numeroDocumento=$request->get('numeroDocumento');
         $persona->direccion=$request->get('direccion');
+        $persona->telefono=$request->get('telefono');
         $persona->email=$request->get('email');
         $persona->save();
         return Redirect::to('ventas/cliente');
@@ -111,6 +112,7 @@ class ClienteController extends Controller
         $persona->numeroDocumento=$request->get('numeroDocumento');
         $persona->direccion=$request->get('direccion');
         $persona->email=$request->get('email');
+        $persona->telefono=$request->get('telefono');
         $persona->update();
         return Redirect::to('ventas/cliente');
 
