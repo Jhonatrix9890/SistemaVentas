@@ -64,59 +64,55 @@ class IngresoController extends Controller
 
     }
 
-    public function store(IngresoRequest $request)
+    public function store (IngresoRequest $request)
     {
-        try{
+        try {
             DB::beginTransaction();
-            $ingreso=new Ingreso;
+            $ingreso = new Ingreso;
             $ingreso->idProveedor=$request->get('idProveedor');
             $ingreso->tipoComprovante=$request->get('tipoComprovante');
             $ingreso->serieComprovante=$request->get('serieComprovante');
             $ingreso->numeroComprovante=$request->get('numeroComprovante');
-            $mytime= Carbono::now('America/Guayaquil');
+            $mytime = Carbon::now('America/Bogota');
             $ingreso->fechaHora=$mytime->toDateTimeString();
-            $ingresos->impuesto='12';
-            $ingreso->estado='A';
+            $ingreso->impuesto = '19';
+            $ingreso->estado = 'A';
             $ingreso->save();
 
-           $idArticulo=$request->get('idArticulo');
-           $cantidad=$request->get('cantidad');
-           $precioCompra=$request->get('precioCompra');
-           $precioVneta=$request->get('precioVenta');
-           
-           $cont=0;
-           while($con5 < count($idArticulo)){
-                $detalle = new DetalleIngreso();
-                $detalle->ingreso=$ingreso->idingreso;
+            $idArticulo = $request->get('idArticulo');
+            $cantidad = $request->get('cantidad');
+            $precioCompra = $request->get('precioCompra');
+            $precioVenta = $request->get('precioVenta');
+
+            $cont = 0;
+
+            while ($cont<count($idArticulo)) {
+                $detalle=new DetalleIngreso();
+                $detalle->idIngreso=$ingreso->idingreso;
                 $detalle->idArticulo=$idArticulo[$cont];
                 $detalle->cantidad=$cantidad[$cont];
                 $detalle->precioCompra=$precioCompra[$cont];
                 $detalle->precioVenta=$precioVenta[$cont];
                 $detalle->save();
-                 $cont=$cont+1;
-           }
-           DB::commit();
-           return redirect('compras/ingreso');
-        }
-        catch(\Exception $e){
+                $cont=$cont+1;
+            }
 
-            DB::rollBACK();
+            DB::commit();
+        } catch (Exception $e) 
+        {
+            DB::rollback();
         }
-        
+
+        return Redirect::to('compras/ingreso');
     }
+
     public function show($id){
-        $ingreso=DB::table('ingreso as i')
-            ->join('personas as p', 'i.idProveedor','=','p.idpersona')
-            ->join('detalle_ingreso as di', 'i.idingreso','=','di.idIngreso')
-             ->select('i.idingreso','i.fechaHora','p.nombre','i.tipoComprovante','i.serieComprovante','i.numeroComprovante','i.impuesto','i.estado', DB::raw('sum(di.cantidad*precioCompra) as total'))
-            ->where('i.idingreso','=',$id)
-            ->firtsOrFail();
-        $detalle=DB::table('detalle_ingreso ad d')
-            ->join('articulo as a','d.idArticulo','=','a.idarticulo')
-            ->select('a.nombre as articulo', 'd.cantidad','d.precioCompra','d.precioVenta')
-            ->where('d.idIngreso','=',$id)->get();
-        return view("compras.ingreso.show",["ingreso"=>$ingreso,'detalle'=>$detalle]);
+        
+        $ingreso=Ingreso::with('detalles','proveedor')->findOrFail($id);      
+         return view("compras.ingreso.show",compact('ingreso'));       
     }
+
+    
 
     public function destroy($id){
 

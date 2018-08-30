@@ -20,7 +20,10 @@ class DetalleIngreso extends Model
     ];
 
     protected $guarded=[
-
-
     ];
+
+    public function ingreso()
+    {
+        return $this->belongsTo('sisVentas\Ingreso', 'idIngreso');
+    }
 }

@@ -14,7 +14,7 @@ class Ingreso extends Model
      'idProveedor',
      'tipoComprovante',
      'serieComprovante',
-     'numeroCompras',
+     'numeroComprovante',
      'fechaHora',
      'impuesto',
      'estado',
@@ -26,4 +26,15 @@ class Ingreso extends Model
 
 
     ];
+
+
+    public function proveedor()
+    {
+        return $this->belongsTo('sisVentas\Persona', 'idProveedor');
+    }
+
+    public function detalles()
+    {
+        return $this->hasMany('sisVentas\DetalleIngreso', 'idIngreso');
+    }
 }
