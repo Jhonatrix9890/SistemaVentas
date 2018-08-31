@@ -1,36 +1,29 @@
 @extends ('layouts.admin')
 @section ('contenido')
 
-                <input type="hidden" name"nombre_de_campo" value="                {{$total=0}}   
-                @foreach($ingreso->detalles as $det)
-
-                {{$total=$total+($det->cantidad*$det->precioCompra)}}
-
-                @endforeach" />
-            
             <div class="row">
               <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                 <div class="form-group">
-                    <label for="nombre">Proveedor</label>
-                    <p>{{$ingreso->proveedor->nombre}}</p>
+                    <label for="nombre">Cliente</label>
+                    <p>{{$venta->cliente->nombre}}</p>
                 </div>
               </div>
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                <div class="form-group">
                   <label>Tipo de Comprobante</label>
-                   <p>{{$ingreso->tipoComprovante}}</p>
+                   <p>{{$venta->tipoComprovante}}</p>
               </div>
             </div>
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                  <div class="form-group">
                     <label for="serieComprobante">Serie del Comprobante</label>
-                    <p>{{$ingreso->serieComprovante}}</p>
+                    <p>{{$venta->serieComprovante}}</p>
                 </div>  
             </div>
                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                    <div class="form-group">
                       <label for="num_comprobante">Numero del Comprobante</label>
-                      <p>{{$ingreso->numeroComprovante}}</p> 
+                      <p>{{$venta->numeroComprovante}}</p> 
                     </div>
               </div>
             </div>
@@ -42,8 +35,8 @@
                                   <thead style="background-color: #A9D0F5">                                   
                                       <th>Articulo</th>
                                       <th>Cantidad</th>
-                                      <th>Precio Compra</th>
                                       <th>Precio Venta</th>
+                                      <th>Descuento</th>
                                       <th>Subtotal</th>
                                 </thead>
                                 <tfoot>
@@ -52,16 +45,16 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th><h4 id="total">$/ {{$total}}</h4></th>
+                                    <th><h4 id="total">$/ {{$venta->totalVenta}}</h4></th>
                                 </tfoot>
                                 <tbody>   
                                    @foreach($detalles as $det)   
                                    <tr>
                                       <td>{{$det->articulo}}</td>
                                       <td>{{$det->cantidad}}</td>
-                                      <td>{{$det->precioCompra}}</td>
+                                      <td>{{$det->descuento}}</td>
                                       <td>{{$det->precioVenta}}</td>
-                                      <td>{{$det->cantidad*$det->precioCompra}}</td>
+                                      <td>{{($det->cantidad*$det->precioVenta)-$det->descuento}}</td>
 
                                    </tr>
                                    @endforeach

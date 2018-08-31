@@ -27,4 +27,14 @@ class Venta extends Model
 
 
     ];
+
+    public function cliente()
+    {
+        return $this->belongsTo('sisVentas\Persona', 'idCliente');
+    }
+
+    public function detalles()
+    {
+        return $this->hasMany('sisVentas\DetalleVenta', 'idVenta');
+    }
 }

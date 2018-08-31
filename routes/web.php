@@ -12,12 +12,22 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
+Route::group(["middleware" => "auth"], function () {    
+    Route::resource('almacen/categoria', 'CategoriaController');
+    Route::resource('almacen/articulo', 'ArticuloController');
+    Route::resource('ventas/cliente', 'ClienteController');
+    Route::resource('compras/proveedor', 'ProveedorController');
+    Route::resource('compras/ingreso', 'IngresoController');
+    Route::resource('ventas/venta', 'VentaController');
 
-Route::resource('almacen/categoria', 'CategoriaController');
-Route::resource('almacen/articulo', 'ArticuloController');
-Route::resource('ventas/cliente', 'ClienteController');
-Route::resource('compras/proveedor', 'ProveedorController');
-Route::resource('compras/ingreso', 'IngresoController');
+});
 //Route::get('/{?slug}', 'HomeController@index');
+Auth::routes();
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+

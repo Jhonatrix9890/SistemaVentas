@@ -108,8 +108,16 @@ class IngresoController extends Controller
 
     public function show($id){
         
-        $ingreso=Ingreso::with('detalles','proveedor')->findOrFail($id);      
-         return view("compras.ingreso.show",compact('ingreso'));       
+        $ingreso=Ingreso::with('proveedor')->findOrFail($id);      
+       
+
+         $detalles=DB::table('detalle_ingreso as d')
+         ->join('articulo as a','d.idArticulo','=','a.idarticulo')
+         ->select('a.nombre as articulo', 'd.cantidad', 'd.precioCompra',
+         'd.precioVenta')
+         ->where('d.idIngreso','=',$id)
+         ->get();    
+         return view("compras.ingreso.show",compact('ingreso', 'detalles'));  
     }
 
     
