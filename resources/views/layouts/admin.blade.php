@@ -48,25 +48,22 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <small class="bg-red">Online</small>
-                  <span class="hidden-xs">Jonathan Javier Silva Morán</span>
+                  <span class="hidden-xs"> {{ Auth::user()->name }} </span>
                 </a>
-                <ul class="dropdown-menu">
-                  <!-- User image -->
-                  <li class="user-header">
-                    
-                    <p>
-                      www.incanatoit.com - Desarrollando Software
-                      <small>www.youtube.com/jcarlosad7</small>
-                    </p>
-                  </li>
-                  
-                  <!-- Menu Footer-->
-                  <li class="user-footer">
-                    
-                    <div class="pull-right">
-                      <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Cerrar</a>
-                    </div>
-                  </li>
+                <ul class="dropdown-menun " >
+              
+                      
+                                         
+                      <a  href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                       {{ __('') }}<button class="btn btn-warning">Cerrar</button>
+                     </a>
+  
+                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                       @csrf
+                   </form> 
+             
                 </ul>
               </li>
               
@@ -92,8 +89,15 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="almacen/articulo"><i class="fa fa-circle-o"></i> Artículos</a></li>
-                <li><a href="almacen/categoria"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                  <li><a href="{{ url('almacen/articulo') }}" 
+                    class="nav-link {{Route::currentRouteName() != 'articulo.index' ?: 'active'}}">
+                  <i class="fa fa-circle-o"></i> Artículos</a></li>          
+  
+  
+                  <li><a href="{{ url('almacen/categoria') }}" 
+                    class="nav-link {{Route::currentRouteName() != 'categoria.index' ?: 'active'}}">
+                  <i class="fa fa-circle-o"></i> Categorias</a></li>          
+  
               </ul>
             </li>
             
@@ -104,8 +108,15 @@
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="compras/ingreso"><i class="fa fa-circle-o"></i> Ingresos</a></li>
-                <li><a href="compras/proveedor"><i class="fa fa-circle-o"></i> Proveedores</a></li>
+                  <li><a href="{{ url('compras/ingreso') }}" 
+                    class="nav-link {{Route::currentRouteName() != 'ingreso.index' ?: 'active'}}">
+                  <i class="fa fa-circle-o"></i> Ingresos</a></li>          
+  
+  
+                  <li><a href="{{ url('compras/proveedor') }}" 
+                    class="nav-link {{Route::currentRouteName() != 'proveedor.index' ?: 'active'}}">
+                  <i class="fa fa-circle-o"></i> Proveedores</a></li>          
+  
               </ul>
             </li>
             <li class="treeview">
@@ -115,8 +126,15 @@
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="ventas/venta"><i class="fa fa-circle-o"></i> Ventas</a></li>
-                <li><a href="ventas/cliente"><i class="fa fa-circle-o"></i> Clientes</a></li>
+                 <li><a href="{{ url('ventas/venta') }}" 
+                  class="nav-link {{Route::currentRouteName() != 'venta.index' ?: 'active'}}">
+                <i class="fa fa-circle-o"></i> Ventas</a></li>          
+
+
+                <li><a href="{{ url('ventas/cliente') }}" 
+                  class="nav-link {{Route::currentRouteName() != 'cliente.index' ?: 'active'}}">
+                <i class="fa fa-circle-o"></i> Clientes</a></li>          
+
               </ul>
             </li>
                        
