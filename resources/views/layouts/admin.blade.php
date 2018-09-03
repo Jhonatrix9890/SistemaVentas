@@ -26,7 +26,7 @@
       <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="/home" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>AD</b>V</span>
           <!-- logo for regular state and mobile devices -->
@@ -85,7 +85,7 @@
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-laptop"></i>
-                <span>Almacén</span>
+                <span>Tienda</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
@@ -128,10 +128,8 @@
               <ul class="treeview-menu">
                  <li><a href="{{ url('ventas/venta') }}" 
                   class="nav-link {{Route::currentRouteName() != 'venta.index' ?: 'active'}}">
-                <i class="fa fa-circle-o"></i> Ventas</a></li>          
-
-
-                <li><a href="{{ url('ventas/cliente') }}" 
+                <i class="fa fa-circle-o"></i> Ventas</a></li>  
+                 <li><a href="{{ url('ventas/cliente') }}" 
                   class="nav-link {{Route::currentRouteName() != 'cliente.index' ?: 'active'}}">
                 <i class="fa fa-circle-o"></i> Clientes</a></li>          
 
@@ -144,8 +142,9 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="configuracion/usuario"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-                
+                <li><a href="{{ url('seguridad/usuario') }}" 
+                  class="nav-link {{Route::currentRouteName() != 'usuario.index' ?: 'active'}}">
+                <i class="fa fa-circle-o"></i> Usuarios</a></li> 
               </ul>
             </li>
              <li>
@@ -179,7 +178,7 @@
           
           <div class="row">
             <div class="col-md-12">
-              <div class="box">
+              <div class="box"></br>
                 <div class="box-header with-border">
                   <h3 class="box-title">Sistema de Ventas</h3>
                   <div class="box-tools pull-right">

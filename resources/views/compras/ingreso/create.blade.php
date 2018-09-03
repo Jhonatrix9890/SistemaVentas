@@ -1,8 +1,11 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<div class="card-header"> <a class="btn btn-primary" href="{{url('compras/ingreso')}}" title="Regresar al listado" role="button">
+	<i class="fa fa-reply" aria-hidden="true"></i>
+</a></div>
  <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-   <h3>Nueva Ingreso</h3>
+   <h3>Nuevo Ingreso</h3>
    @if (count($errors)>0)
    <div class="alert alert-danger">
     <ul>
@@ -31,8 +34,8 @@
                <div class="form-group">
                <label>Tipo de Comprobante</label>
                <select name="tipoComprovante" id="tipoComprovante" class="form-control">
-               <option value="Boleta">Boleta</option>
                <option value="Factura">Factura</option>
+               <option value="Boleta">Boleta</option>
                <option value="Ticket">Ticket</option>
                </select>
             </div>

@@ -21,6 +21,7 @@ Route::group(["middleware" => "auth"], function () {
     Route::resource('compras/proveedor', 'ProveedorController');
     Route::resource('compras/ingreso', 'IngresoController');
     Route::resource('ventas/venta', 'VentaController');
+    Route::resource('seguridad/usuario', 'UserController');
 
 });
 //Route::get('/{?slug}', 'HomeController@index');

@@ -1,5 +1,8 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<div class="card-header"> <a class="btn btn-primary" href="{{url('ventas/venta')}}" title="Regresar al listado" role="button">
+	<i class="fa fa-reply" aria-hidden="true"></i>
+</a></div>
  <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
    <h3>Nueva Venta</h3>
@@ -31,15 +34,15 @@
                <div class="form-group">
                <label>Tipo de Comprobante</label>
                <select name="tipoComprovante" id="tipoComprovante" class="form-control">
-               <option value="Boleta">Boleta</option>
                <option value="Factura">Factura</option>
+               <option value="Boleta">Boleta</option>
                <option value="Ticket">Ticket</option>
                </select>
             </div>
             </div>
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                  <div class="form-group">
-             <label for="serieComproVante">Serie del Comprobante</label>
+             <label for="serieComprobante">Serie del Comprobante</label>
              <input type="text" name="serieComprovante" id="serieComprovante" value="{{old('serieComprovante')}}" class="form-control" placeholder="Serie del Comprobante..">
             </div>
             </div>
@@ -72,22 +75,25 @@
               <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                 <div class="form-group">
                 <label for="stock">Stock</label>
-                  <input type="number" name="pstock" id="pstock"  disabled class="form-control" placeholder="Stock">
+                  <input type="number" disabled name="pstock" id="pstock" class="form-control" placeholder="Stock">
                   </div>
                   </div>
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-            <div class="form-group">
-            <label for="precioVenta">Precio de Venta</label>
-             <input type="number" name="pprecioVenta" disabled  id="pprecioVenta" class="form-control" placeholder="P.Venta...">
-             </div>
-             </div>
-             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-              <div class="form-group">
-              <label for="Descuento">Descuento</label>
-               <input type="number" name="pdescuento" id="pdescuento" class="form-control" placeholder="Descuento...">
-               </div>
-               </div>
 
+                  <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                    <div class="form-group">
+                    <label for="precioVenta">Precio de Venta</label>
+                     <input type="number"  disabled name="pprecioVenta" id="pprecioVenta" class="form-control" placeholder="P.Compra">
+                     </div>
+                     </div>
+
+              <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                <div class="form-group">
+                <label for="descuento">Descuento</label>
+                 <input type="number" name="pdescuento" id="pdescuento" value="0" class="form-control" placeholder="Descuento">
+                </div>
+                </div>
+
+             
             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
             <div class="form-group">
             <button class="btn btn-primary" type="button" id="bt_add">Agregar</button>
@@ -110,7 +116,8 @@
             <th></th>
             <th></th>
             <th></th>
-            <th><h4 id="total">$/ 0.00</h4> <input type="hidden" name="totalVenta" id="totalVenta" ></th>
+            <th><h4 id="total">$/ 0.00</h4><input type="hidden" 
+                name="totalVenta" id="totalVenta"></th>
             </tfoot>
             <tbody>              
             </tbody>
@@ -140,59 +147,56 @@
   total=0;
   subtotal=[];
   $("#guardar").hide();
-  $("#pidArticulo").change(mostrarValores);
+  $('#pidArticulo').change(mostrarValores);
 
   function mostrarValores(){
-    
-    datosArticulo=document.getElementById('pidArticulo').value.split('_');
-    $("#pprecioVenta").val(datosArticulo[2]);
-    $("#pstock").val(datosArticulo[1]);
-
+    datosArticulo=document.getElementById('pidArticulo').value.split('_');  
+    $('#pprecioVenta').val(datosArticulo[2]);
+    $('#pstock').val(datosArticulo[1]);
   }
 
   function agregar(){
-    datosArticulo=document.getElementById('pidArticulo').value.split('_');
-   
-
-    idArticulo=datosArticulo[0];
+    datosArticulo2=document.getElementById('pidArticulo').value.split('_');
+    idArticulo=datosArticulo2[0];
     articulo=$("#pidArticulo option:selected").text();
     cantidad=$("#pcantidad").val();
     descuento=$("#pdescuento").val();
     precioVenta=$("#pprecioVenta").val();
-    stock=$("#pstock").val();
+    stock=$('#pstock').val();
 
-    if (idArticulo!="" && cantidad!="" && cantidad>0 && descuento!="" && precioVenta!="")
-    {
-      if(cantidad>=stock){
-        subtotal[cont]=(cantidad*precioVenta)-descuento;
-       total=total+subtotal[cont];
-       var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idArticulo[]" value="'+idArticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precioVenta[]" value="'+precioVenta+'"></td><td><input type="number" name="descuento[]" value="'+descuento+'"></td><td>'+subtotal[cont]+'</td></tr>';
-       cont++;
-       limpiar();
-       $('#total').html("$/ " + total);
-       $('#totalVenta').val(total);
-       evaluar();
-       $('#detalles').append(fila);
+    if (idArticulo!="" && cantidad!="" && cantidad>=1  && descuento!="" && precioVenta!="")
+    {               
 
+        if(parseInt(cantidad)<=parseInt(stock)){
+            subtotal[cont]=(cantidad*precioVenta-descuento);
+            total=total+subtotal[cont];
+     
+            var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idArticulo[]" value="'+idArticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precioVenta[]" value="'+precioVenta+'"></td><td><input type="number" name="descuento[]" value="'+descuento+'"></td><td>'+subtotal[cont]+'</td></tr>';
+            cont++;
+            limpiar();
+            $('#total').html("$/ " + total);
+            $('#totalVenta').val(total);
+            evaluar();
+            $('#detalles').append(fila);
+        }
+        else
+        {
 
-      }
-      else{
+            alert('La cantidad de compra supera el stock');
+        }
+      
 
-        alert("Error la cantidad ingresada supera el  stock");
-   
-
-      }
-       
     }
     else
     {
-      alert("Error al ingresar el detalle de la venta, revise los datos del articulo");
+      alert("Error al ingresar el detalle la venta, revise los datos del articulo");
     }
   
   }
+  
   function limpiar(){
     $("#pcantidad").val("");
-    $("#pdescuento").val("");
+  
     $("#pprecioVenta").val("");
   }
 
@@ -210,6 +214,7 @@
 
    function eliminar(index){
     total=total-subtotal[index]; 
+    $("#total").html("S/. " + total);   
     $("#totalVenta").val(total);   
     $("#fila" + index).remove();
     evaluar();

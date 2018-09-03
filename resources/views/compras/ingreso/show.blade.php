@@ -1,5 +1,8 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<div class="card-header"> <a class="btn btn-primary" href="{{url('compras/ingreso')}}" title="Regresar al listado" role="button">
+	<i class="fa fa-reply" aria-hidden="true"></i>
+</a></div>
 
                 <input type="hidden" name"nombre_de_campo" value="                {{$total=0}}   
                 @foreach($ingreso->detalles as $det)

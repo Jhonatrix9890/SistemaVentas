@@ -1,5 +1,8 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<div class="card-header"> <a class="btn btn-primary" href="{{url('ventas/venta')}}" title="Regresar al listado" role="button">
+	<i class="fa fa-reply" aria-hidden="true"></i>
+</a></div>
 
             <div class="row">
               <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
@@ -52,8 +55,8 @@
                                    <tr>
                                       <td>{{$det->articulo}}</td>
                                       <td>{{$det->cantidad}}</td>
-                                      <td>{{$det->descuento}}</td>
                                       <td>{{$det->precioVenta}}</td>
+                                      <td>{{$det->descuento}}</td>
                                       <td>{{($det->cantidad*$det->precioVenta)-$det->descuento}}</td>
 
                                    </tr>

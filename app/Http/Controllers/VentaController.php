@@ -33,7 +33,7 @@ class VentaController extends Controller
              ->join('persona as p', 'v.idCliente','=','p.idpersona')
              ->join('detalle_venta as dv', 'v.idventa','=','dv.idVenta')
             ->select('v.idventa','v.fechaHora','p.nombre','v.tipoComprovante','v.serieComprovante','v.numeroComprovante','v.impuesto','v.estado','v.totalVenta')
-            ->where('v.numeroComprovante','LIKE','%'.$query.'%')
+            ->where('p.nombre','LIKE','%'.$query.'%')
             ->orderBy('v.idventa','dec')
             ->groupBy('v.idventa','v.fechaHora','p.nombre','v.tipoComprovante','v.serieComprovante','v.numeroComprovante','v.impuesto','v.estado', 'v.totalVenta')
              ->paginate(7);
