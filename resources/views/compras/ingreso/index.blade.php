@@ -23,7 +23,7 @@
 				</thead>
                @foreach ($ingresos as $ing)
 				<tr>					
-					<td>{{ $ing->fechaHora}}</td>
+					<td>{{ $ing->fechahora}}</td>
 					<td>{{ $ing->nombre}}</td>					
 					<td>{{ $ing->tipoComprovante.'-'.$ing->serieComprovante .' : '.$ing->numeroComprovante}}</td>	
 					<td>{{ $ing->impuesto}}</td>

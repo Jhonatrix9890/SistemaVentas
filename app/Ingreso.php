@@ -15,7 +15,7 @@ class Ingreso extends Model
      'tipoComprovante',
      'serieComprovante',
      'numeroComprovante',
-     'fechaHora',
+     'fechahora',
      'impuesto',
      'estado',
 

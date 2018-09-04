@@ -35,10 +35,10 @@ class IngresoController extends Controller
              $ingresos=DB::table('ingreso as i')
              ->join('persona as p', 'i.idProveedor','=','p.idpersona')
              ->join('detalle_ingreso as di', 'i.idingreso','=','di.idIngreso')
-            ->select('i.idingreso','i.fechaHora','p.nombre','i.tipoComprovante','i.serieComprovante','i.numeroComprovante','i.impuesto','i.estado', DB::raw('sum(di.cantidad*precioCompra) as total'))
+            ->select('i.idingreso','i.fechahora','p.nombre','i.tipoComprovante','i.serieComprovante','i.numeroComprovante','i.impuesto','i.estado', DB::raw('sum(di.cantidad*precioCompra) as total'))
             ->where('i.numeroComprovante','LIKE','%'.$query.'%')
             ->orderBy('i.idingreso','dec')
-            ->groupBy('i.idingreso','i.fechaHora','p.nombre','i.tipoComprovante','i.serieComprovante','i.numeroComprovante','i.impuesto','i.estado')
+            ->groupBy('i.idingreso','i.fechahora','p.nombre','i.tipoComprovante','i.serieComprovante','i.numeroComprovante','i.impuesto','i.estado')
              ->paginate(7);
              return view('compras.ingreso.index',["ingresos"=>$ingresos, "searchText"=>$query]);
          }
@@ -70,7 +70,7 @@ class IngresoController extends Controller
             $ingreso->serieComprovante=$request->get('serieComprovante');
             $ingreso->numeroComprovante=$request->get('numeroComprovante');
             $mytime = Carbon::now('America/Bogota');
-            $ingreso->fechaHora=$mytime->toDateTimeString();
+            $ingreso->fechahora=$mytime->toDateTimeString();
             $ingreso->impuesto = '19';
             $ingreso->estado = 'A';
             $ingreso->save();

@@ -15,7 +15,7 @@ class Venta extends Model
      'tipoComprovante',
      'serieComprovante',
      'numeroComprovante',     
-     'fechaHora',
+     'fechahora',
      'impuesto',
      'totalVenta',
      'estado',

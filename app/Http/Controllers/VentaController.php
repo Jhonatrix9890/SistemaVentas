@@ -32,10 +32,10 @@ class VentaController extends Controller
              $ventas=DB::table('venta as v')
              ->join('persona as p', 'v.idCliente','=','p.idpersona')
              ->join('detalle_venta as dv', 'v.idventa','=','dv.idVenta')
-            ->select('v.idventa','v.fechaHora','p.nombre','v.tipoComprovante','v.serieComprovante','v.numeroComprovante','v.impuesto','v.estado','v.totalVenta')
+            ->select('v.idventa','v.fechahora','p.nombre','v.tipoComprovante','v.serieComprovante','v.numeroComprovante','v.impuesto','v.estado','v.totalVenta')
             ->where('p.nombre','LIKE','%'.$query.'%')
             ->orderBy('v.idventa','dec')
-            ->groupBy('v.idventa','v.fechaHora','p.nombre','v.tipoComprovante','v.serieComprovante','v.numeroComprovante','v.impuesto','v.estado', 'v.totalVenta')
+            ->groupBy('v.idventa','v.fechahora','p.nombre','v.tipoComprovante','v.serieComprovante','v.numeroComprovante','v.impuesto','v.estado', 'v.totalVenta')
              ->paginate(7);
              return view('ventas.venta.index',["ventas"=>$ventas, "searchText"=>$query]);
          }
@@ -73,7 +73,7 @@ class VentaController extends Controller
             $venta->totalVenta=$request->get('totalVenta');
             
             $mytime = Carbon::now('America/Bogota');
-            $venta->fechaHora=$mytime->toDateTimeString();
+            $venta->fechahora=$mytime->toDateTimeString();
             $venta->impuesto = '18';
             $venta->estado = 'A';
             $venta->save();
