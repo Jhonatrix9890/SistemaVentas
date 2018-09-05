@@ -34,8 +34,8 @@
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="form-group">
-						<label for="tipoDocumento">Documento</label>
-						<select name="tipoDocumento" class="form-control">
+						<label for="tipodocumento">Documento</label>
+						<select name="tipodocumento" class="form-control">
 							<option value="CEDULA">CEDULA</option>
 							<option value="RUC">RUC</option>
 							<option value="PASAPORTE">PASAPORTE</option>
@@ -44,8 +44,8 @@
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<div class="form-group">
-								<label for="numeroDocumento">Número de documento</label>
-								<input type="text" name="numeroDocumento" value="{{old('numeroDocumento')}}" class="form-control" placeholder="Número de Documento...">
+								<label for="numerodocumento">Número de documento</label>
+								<input type="text" name="numerodocumento" value="{{old('numerodocumento')}}" class="form-control" placeholder="Número de Documento...">
 						</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

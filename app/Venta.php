@@ -11,13 +11,13 @@ class Venta extends Model
     public $timestamps=false;
 
     protected $fillable=[
-     'idCliente',
-     'tipoComprovante',
-     'serieComprovante',
-     'numeroComprovante',     
+     'idcliente',
+     'tipocomprovante',
+     'seriecomprovante',
+     'numerocomprovante',     
      'fechahora',
      'impuesto',
-     'totalVenta',
+     'totalventa',
      'estado',
 
 
@@ -30,11 +30,11 @@ class Venta extends Model
 
     public function cliente()
     {
-        return $this->belongsTo('sisVentas\Persona', 'idCliente');
+        return $this->belongsTo('sisVentas\Persona', 'idcliente');
     }
 
     public function detalles()
     {
-        return $this->hasMany('sisVentas\DetalleVenta', 'idVenta');
+        return $this->hasMany('sisVentas\DetalleVenta', 'idventa');
     }
 }

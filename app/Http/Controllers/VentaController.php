@@ -30,12 +30,12 @@ class VentaController extends Controller
 
             $query =trim($request->get('searchText'));
              $ventas=DB::table('venta as v')
-             ->join('persona as p', 'v.idCliente','=','p.idpersona')
-             ->join('detalle_venta as dv', 'v.idventa','=','dv.idVenta')
-            ->select('v.idventa','v.fechahora','p.nombre','v.tipoComprovante','v.serieComprovante','v.numeroComprovante','v.impuesto','v.estado','v.totalVenta')
+             ->join('persona as p', 'v.idcliente','=','p.idpersona')
+             ->join('detalle_venta as dv', 'v.idventa','=','dv.idventa')
+            ->select('v.idventa','v.fechahora','p.nombre','v.tipocomprovante','v.seriecomprovante','v.numerocomprovante','v.impuesto','v.estado','v.totalventa')
             ->where('p.nombre','LIKE','%'.$query.'%')
             ->orderBy('v.idventa','dec')
-            ->groupBy('v.idventa','v.fechahora','p.nombre','v.tipoComprovante','v.serieComprovante','v.numeroComprovante','v.impuesto','v.estado', 'v.totalVenta')
+            ->groupBy('v.idventa','v.fechahora','p.nombre','v.tipocomprovante','v.seriecomprovante','v.numerocomprovante','v.impuesto','v.estado', 'v.totalventa')
              ->paginate(7);
              return view('ventas.venta.index',["ventas"=>$ventas, "searchText"=>$query]);
          }
@@ -48,11 +48,11 @@ class VentaController extends Controller
      */
     public function create()
     {   
-            $personas=DB::table('persona')->where('tipoPersona', '=', 'Cliente')->get();
+            $personas=DB::table('persona')->where('tipopersona', '=', 'Cliente')->get();
             $articulos=DB::table('articulo as art')
-            ->join('detalle_ingreso as de', 'art.idarticulo','=','de.idArticulo')
-            ->select(DB::raw('CONCAT(art.codigo, " ", art.nombre) as articulo'),
-             'art.idarticulo', 'art.stock', DB::Raw('avg(de.precioVenta) as  precioPromedio' ))
+            ->join('detalle_ingreso as de', 'art.idarticulo','=','de.idarticulo')
+            ->select(DB::raw('art.nombre as articulo'),
+             'art.idarticulo', 'art.stock', DB::Raw('avg(de.precioventa) as  preciopromedio' ))
             ->where('art.estado','=','Activo')
             ->where('art.stock','>','0')
             ->groupBy('articulo', 'art.idarticulo','art.stock')
@@ -66,11 +66,11 @@ class VentaController extends Controller
         try {
             DB::beginTransaction();
             $venta = new Venta;
-            $venta->idCliente=$request->get('idCliente');
-            $venta->tipoComprovante=$request->get('tipoComprovante');
-            $venta->serieComprovante=$request->get('serieComprovante');
-            $venta->numeroComprovante=$request->get('numeroComprovante');
-            $venta->totalVenta=$request->get('totalVenta');
+            $venta->idcliente=$request->get('idcliente');
+            $venta->tipocomprovante=$request->get('tipocomprovante');
+            $venta->seriecomprovante=$request->get('seriecomprovante');
+            $venta->numerocomprovante=$request->get('numerocomprovante');
+            $venta->totalventa=$request->get('totalventa');
             
             $mytime = Carbon::now('America/Bogota');
             $venta->fechahora=$mytime->toDateTimeString();
@@ -78,20 +78,20 @@ class VentaController extends Controller
             $venta->estado = 'A';
             $venta->save();
 
-            $idArticulo = $request->get('idArticulo');
+            $idarticulo = $request->get('idarticulo');
             $cantidad = $request->get('cantidad');
             $descuento = $request->get('descuento');
-            $precioVenta = $request->get('precioVenta');
+            $precioventa = $request->get('precioventa');
 
             $cont = 0;
 
-            while ($cont<count($idArticulo)) {
+            while ($cont<count($idarticulo)) {
                 $detalle=new DetalleVenta();
-                $detalle->idVenta=$venta->idventa;
-                $detalle->idArticulo=$idArticulo[$cont];
+                $detalle->idventa=$venta->idventa;
+                $detalle->idarticulo=$idarticulo[$cont];
                 $detalle->cantidad=$cantidad[$cont];
                 $detalle->descuento=$descuento[$cont];
-                $detalle->precioVenta=$precioVenta[$cont];
+                $detalle->precioventa=$precioventa[$cont];
                 $detalle->save();
                 $cont=$cont+1;
             }
@@ -110,10 +110,10 @@ class VentaController extends Controller
         $venta=Venta::with('cliente')->findOrFail($id);      
          
         $detalles=DB::table('detalle_venta as d')
-        ->join('articulo as a','d.idArticulo','=','a.idarticulo')
-        ->select('a.nombre as articulo', 'd.cantidad', 'd.precioVenta',
+        ->join('articulo as a','d.idarticulo','=','a.idarticulo')
+        ->select('a.nombre as articulo', 'd.cantidad', 'd.precioventa',
         'd.descuento')
-        ->where('d.idVenta','=',$id)
+        ->where('d.idventa','=',$id)
         ->get();
         return view("ventas.venta.show",compact('venta','detalles'));       
     }

@@ -23,7 +23,7 @@
              <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                 <div class="form-group">
              <label for="nombre">Cliente</label>
-             <select name="idCliente" id="idCliente" class="form-control selectpicker" data-live-search="true">
+             <select name="idcliente" id="idcliente" class="form-control selectpicker" data-live-search="true">
               @foreach($personas as $persona)
               <option value="{{$persona->idpersona}}">{{$persona->nombre}}</option>
               @endforeach
@@ -33,7 +33,7 @@
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                <div class="form-group">
                <label>Tipo de Comprobante</label>
-               <select name="tipoComprovante" id="tipoComprovante" class="form-control">
+               <select name="tipocomprovante" id="tipocomprovante" class="form-control">
                <option value="Factura">Factura</option>
                <option value="Boleta">Boleta</option>
                <option value="Ticket">Ticket</option>
@@ -43,13 +43,13 @@
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                  <div class="form-group">
              <label for="serieComprobante">Serie del Comprobante</label>
-             <input type="text" name="serieComprovante" id="serieComprovante" value="{{old('serieComprovante')}}" class="form-control" placeholder="Serie del Comprobante..">
+             <input type="text" name="seriecomprovante" id="seriecomprovante" value="{{old('seriecomprovante')}}" class="form-control" placeholder="Serie del Comprobante..">
             </div>
             </div>
                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                  <div class="form-group">
               <label for="num_comprobante">Numero del Comprobante</label>
-              <input type="text" name="numeroComprovante" id="numeroComprovante" required value="{{old('numeroComprovante')}}" class="form-control" placeholder="Numero del Comprobante..">
+              <input type="text" name="numerocomprovante" id="numerocomprovante" required value="{{old('numerocomprovante')}}" class="form-control" placeholder="Numero del Comprobante..">
             </div>
             </div>
             </div>
@@ -59,9 +59,9 @@
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
             <div class="form-group">
             <label>Articulo</label>
-            <select name="pidArticulo" id="pidArticulo" class="form-control selectpicker" data-live-search="true">
+            <select name="pidarticulo" id="pidarticulo" class="form-control selectpicker" data-live-search="true">
             @foreach($articulos as $articulo)
-            <option value="{{$articulo->idarticulo}}_{{$articulo->stock}}_{{$articulo->precioPromedio}}">{{$articulo->articulo}}</option>
+            <option value="{{$articulo->idarticulo}}_{{$articulo->stock}}_{{$articulo->preciopromedio}}">{{$articulo->articulo}}</option>
             @endforeach
             </select>
             </div>
@@ -81,8 +81,8 @@
 
                   <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                     <div class="form-group">
-                    <label for="precioVenta">Precio de Venta</label>
-                     <input type="number"  disabled name="pprecioVenta" id="pprecioVenta" class="form-control" placeholder="P.Compra">
+                    <label for="precioventa">Precio de Venta</label>
+                     <input type="number"  disabled name="pprecioventa" id="pprecioventa" class="form-control" placeholder="P.Compra">
                      </div>
                      </div>
 
@@ -117,7 +117,7 @@
             <th></th>
             <th></th>
             <th><h4 id="total">$/ 0.00</h4><input type="hidden" 
-                name="totalVenta" id="totalVenta"></th>
+                name="totalventa" id="totalventa"></th>
             </tfoot>
             <tbody>              
             </tbody>
@@ -147,35 +147,35 @@
   total=0;
   subtotal=[];
   $("#guardar").hide();
-  $('#pidArticulo').change(mostrarValores);
+  $('#pidarticulo').change(mostrarValores);
 
   function mostrarValores(){
-    datosArticulo=document.getElementById('pidArticulo').value.split('_');  
-    $('#pprecioVenta').val(datosArticulo[2]);
+    datosArticulo=document.getElementById('pidarticulo').value.split('_');  
+    $('#pprecioventa').val(datosArticulo[2]);
     $('#pstock').val(datosArticulo[1]);
   }
 
   function agregar(){
-    datosArticulo2=document.getElementById('pidArticulo').value.split('_');
-    idArticulo=datosArticulo2[0];
-    articulo=$("#pidArticulo option:selected").text();
+    datosArticulo2=document.getElementById('pidarticulo').value.split('_');
+    idarticulo=datosArticulo2[0];
+    articulo=$("#pidarticulo option:selected").text();
     cantidad=$("#pcantidad").val();
     descuento=$("#pdescuento").val();
-    precioVenta=$("#pprecioVenta").val();
+    precioventa=$("#pprecioventa").val();
     stock=$('#pstock').val();
 
-    if (idArticulo!="" && cantidad!="" && cantidad>=1  && descuento!="" && precioVenta!="")
+    if (idarticulo!="" && cantidad!="" && cantidad>=1  && descuento!="" && precioventa!="")
     {               
 
         if(parseInt(cantidad)<=parseInt(stock)){
-            subtotal[cont]=(cantidad*precioVenta-descuento);
+            subtotal[cont]=(cantidad*precioventa-descuento);
             total=total+subtotal[cont];
      
-            var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idArticulo[]" value="'+idArticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precioVenta[]" value="'+precioVenta+'"></td><td><input type="number" name="descuento[]" value="'+descuento+'"></td><td>'+subtotal[cont]+'</td></tr>';
+            var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precioventa[]" value="'+precioventa+'"></td><td><input type="number" name="descuento[]" value="'+descuento+'"></td><td>'+subtotal[cont]+'</td></tr>';
             cont++;
             limpiar();
             $('#total').html("$/ " + total);
-            $('#totalVenta').val(total);
+            $('#totalventa').val(total);
             evaluar();
             $('#detalles').append(fila);
         }
@@ -197,7 +197,7 @@
   function limpiar(){
     $("#pcantidad").val("");
   
-    $("#pprecioVenta").val("");
+    $("#pprecioventa").val("");
   }
 
   function evaluar()
@@ -215,7 +215,7 @@
    function eliminar(index){
     total=total-subtotal[index]; 
     $("#total").html("S/. " + total);   
-    $("#totalVenta").val(total);   
+    $("#totalventa").val(total);   
     $("#fila" + index).remove();
     evaluar();
 

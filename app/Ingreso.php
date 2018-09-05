@@ -11,10 +11,10 @@ class Ingreso extends Model
     public $timestamps=false;
 
     protected $fillable=[
-     'idProveedor',
-     'tipoComprovante',
-     'serieComprovante',
-     'numeroComprovante',
+     'idproveedor',
+     'tipocomprovante',
+     'seriecomprovante',
+     'numerocomprovante',
      'fechahora',
      'impuesto',
      'estado',
@@ -30,11 +30,11 @@ class Ingreso extends Model
 
     public function proveedor()
     {
-        return $this->belongsTo('sisVentas\Persona', 'idProveedor');
+        return $this->belongsTo('sisVentas\Persona', 'idproveedor');
     }
 
     public function detalles()
     {
-        return $this->hasMany('sisVentas\DetalleIngreso', 'idIngreso');
+        return $this->hasMany('sisVentas\DetalleIngreso', 'idingreso');
     }
 }

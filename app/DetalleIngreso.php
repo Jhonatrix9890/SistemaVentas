@@ -11,11 +11,11 @@ class DetalleIngreso extends Model
     public $timestamps=false;
 
     protected $fillable=[
-     'idIngreso',
-     'idArticulo',
+     'idingreso',
+     'idarticulo',
      'cantidad',
-     'precioCompra',
-     'precioVenta',
+     'preciocompra',
+     'precioventa',
 
     ];
 
@@ -24,6 +24,6 @@ class DetalleIngreso extends Model
 
     public function ingreso()
     {
-        return $this->belongsTo('sisVentas\Ingreso', 'idIngreso');
+        return $this->belongsTo('sisVentas\Ingreso', 'idingreso');
     }
 }

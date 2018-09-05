@@ -23,7 +23,7 @@
              <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                 <div class="form-group">
              <label for="nombre">Proveedor</label>
-             <select name="idProveedor" id="idProveedor" class="form-control selectpicker" data-live-search="true">
+             <select name="idproveedor" id="idproveedor" class="form-control selectpicker" data-live-search="true">
               @foreach($personas as $persona)
               <option value="{{$persona->idpersona}}">{{$persona->nombre}}</option>
               @endforeach
@@ -33,7 +33,7 @@
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                <div class="form-group">
                <label>Tipo de Comprobante</label>
-               <select name="tipoComprovante" id="tipoComprovante" class="form-control">
+               <select name="tipocomprovante" id="tipocomprovante" class="form-control">
                <option value="Factura">Factura</option>
                <option value="Boleta">Boleta</option>
                <option value="Ticket">Ticket</option>
@@ -43,13 +43,13 @@
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                  <div class="form-group">
              <label for="serieComprobante">Serie del Comprobante</label>
-             <input type="text" name="serieComprovante" id="serieComprovante" value="{{old('serieComprovante')}}" class="form-control" placeholder="Serie del Comprobante..">
+             <input type="text" name="seriecomprovante" id="seriecomprovante" value="{{old('seriecomprovante')}}" class="form-control" placeholder="Serie del Comprobante..">
             </div>
             </div>
                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                  <div class="form-group">
               <label for="num_comprobante">Numero del Comprobante</label>
-              <input type="text" name="numeroComprovante" id="numeroComprovante" required value="{{old('numeroComprovante')}}" class="form-control" placeholder="Numero del Comprobante..">
+              <input type="text" name="numerocomprovante" id="numerocomprovante" required value="{{old('numerocomprovante')}}" class="form-control" placeholder="Numero del Comprobante..">
             </div>
             </div>
             </div>
@@ -59,7 +59,7 @@
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
             <div class="form-group">
             <label>Articulo</label>
-            <select name="pidArticulo" id="pidArticulo" class="form-control selectpicker" data-live-search="true">
+            <select name="pidarticulo" id="pidarticulo" class="form-control selectpicker" data-live-search="true">
             @foreach($articulos as $articulo)
             <option value="{{$articulo->idarticulo}}">{{$articulo->articulo}}</option>
             @endforeach
@@ -74,14 +74,14 @@
               </div>
             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
             <div class="form-group">
-            <label for="precioCompra">Precio de Compra</label>
-             <input type="number" name="ppreciocompra" id="pprecioCompra" class="form-control" placeholder="P.Compra">
+            <label for="preciocompra">Precio de Compra</label>
+             <input type="number" name="ppreciocompra" id="ppreciocompra" class="form-control" placeholder="P.Compra">
              </div>
              </div>
               <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
             <div class="form-group">
-            <label for="precioVenta">Precio de venta</label>
-             <input type="number" name="pprecioVenta" id="pprecioVenta" class="form-control" placeholder="P.Venta">
+            <label for="precioventa">Precio de venta</label>
+             <input type="number" name="pprecioventa" id="pprecioventa" class="form-control" placeholder="P.Venta">
             </div>
             </div>
             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
@@ -138,18 +138,18 @@
   $("#guardar").hide();
 
   function agregar(){
-    idArticulo=$("#pidArticulo").val();
-    articulo=$("#pidArticulo option:selected").text();
+    idarticulo=$("#pidarticulo").val();
+    articulo=$("#pidarticulo option:selected").text();
     cantidad=$("#pcantidad").val();
-    precioCompra=$("#pprecioCompra").val();
-    precioVenta=$("#pprecioVenta").val();
+    preciocompra=$("#ppreciocompra").val();
+    precioventa=$("#pprecioventa").val();
 
-    if (idArticulo!="" && cantidad!="" && cantidad>0 && precioCompra!="" && precioVenta!="")
+    if (idarticulo!="" && cantidad!="" && cantidad>0 && preciocompra!="" && precioventa!="")
     {
-       subtotal[cont]=(cantidad*precioCompra);
+       subtotal[cont]=(cantidad*preciocompra);
        total=total+subtotal[cont];
 
-       var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idArticulo[]" value="'+idArticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precioCompra[]" value="'+precioCompra+'"></td><td><input type="number" name="precioVenta[]" value="'+precioVenta+'"></td><td>'+subtotal[cont]+'</td></tr>';
+       var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="preciocompra[]" value="'+preciocompra+'"></td><td><input type="number" name="precioventa[]" value="'+precioventa+'"></td><td>'+subtotal[cont]+'</td></tr>';
        cont++;
        limpiar();
        $('#total').html("$/ " + total);
@@ -165,8 +165,8 @@
   }
   function limpiar(){
     $("#pcantidad").val("");
-    $("#pprecioCompra").val("");
-    $("#pprecioVenta").val("");
+    $("#ppreciocompra").val("");
+    $("#pprecioventa").val("");
   }
 
   function evaluar()

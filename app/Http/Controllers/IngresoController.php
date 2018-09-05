@@ -33,12 +33,12 @@ class IngresoController extends Controller
 
             $query =trim($request->get('searchText'));
              $ingresos=DB::table('ingreso as i')
-             ->join('persona as p', 'i.idProveedor','=','p.idpersona')
-             ->join('detalle_ingreso as di', 'i.idingreso','=','di.idIngreso')
-            ->select('i.idingreso','i.fechahora','p.nombre','i.tipoComprovante','i.serieComprovante','i.numeroComprovante','i.impuesto','i.estado', DB::raw('sum(di.cantidad*precioCompra) as total'))
-            ->where('i.numeroComprovante','LIKE','%'.$query.'%')
+             ->join('persona as p', 'i.idproveedor','=','p.idpersona')
+             ->join('detalle_ingreso as di', 'i.idingreso','=','di.idingreso')
+            ->select('i.idingreso','i.fechahora','p.nombre','i.tipocomprovante','i.seriecomprovante','i.numerocomprovante','i.impuesto','i.estado', DB::raw('sum(di.cantidad*preciocompra) as total'))
+            ->where('i.numerocomprovante','LIKE','%'.$query.'%')
             ->orderBy('i.idingreso','dec')
-            ->groupBy('i.idingreso','i.fechahora','p.nombre','i.tipoComprovante','i.serieComprovante','i.numeroComprovante','i.impuesto','i.estado')
+            ->groupBy('i.idingreso','i.fechahora','p.nombre','i.tipocomprovante','i.seriecomprovante','i.numerocomprovante','i.impuesto','i.estado')
              ->paginate(7);
              return view('compras.ingreso.index',["ingresos"=>$ingresos, "searchText"=>$query]);
          }
@@ -51,9 +51,9 @@ class IngresoController extends Controller
      */
     public function create()
     {   
-            $personas=DB::table('persona')->where('tipoPersona', '=', 'Proveedor')->get();
+            $personas=DB::table('persona')->where('tipopersona', '=', 'Proveedor')->get();
             $articulos=DB::table('articulo as art')
-            ->select(DB::raw('CONCAT(art.codigo, " ", art.nombre) as articulo'), 'art.idarticulo')
+            ->select(DB::raw('art.nombre as articulo'), 'art.idarticulo')
             ->where('art.estado','=','Activo')
             ->get();
             return view("compras.ingreso.create",["personas"=>$personas, "articulos"=>$articulos]);
@@ -65,30 +65,30 @@ class IngresoController extends Controller
         try {
             DB::beginTransaction();
             $ingreso = new Ingreso;
-            $ingreso->idProveedor=$request->get('idProveedor');
-            $ingreso->tipoComprovante=$request->get('tipoComprovante');
-            $ingreso->serieComprovante=$request->get('serieComprovante');
-            $ingreso->numeroComprovante=$request->get('numeroComprovante');
+            $ingreso->idproveedor=$request->get('idproveedor');
+            $ingreso->tipocomprovante=$request->get('tipocomprovante');
+            $ingreso->seriecomprovante=$request->get('seriecomprovante');
+            $ingreso->numerocomprovante=$request->get('numerocomprovante');
             $mytime = Carbon::now('America/Bogota');
             $ingreso->fechahora=$mytime->toDateTimeString();
             $ingreso->impuesto = '19';
             $ingreso->estado = 'A';
             $ingreso->save();
 
-            $idArticulo = $request->get('idArticulo');
+            $idarticulo = $request->get('idarticulo');
             $cantidad = $request->get('cantidad');
-            $precioCompra = $request->get('precioCompra');
-            $precioVenta = $request->get('precioVenta');
+            $preciocompra = $request->get('preciocompra');
+            $precioventa = $request->get('precioventa');
 
             $cont = 0;
 
-            while ($cont<count($idArticulo)) {
+            while ($cont<count($idarticulo)) {
                 $detalle=new DetalleIngreso();
-                $detalle->idIngreso=$ingreso->idingreso;
-                $detalle->idArticulo=$idArticulo[$cont];
+                $detalle->idingreso=$ingreso->idingreso;
+                $detalle->idarticulo=$idarticulo[$cont];
                 $detalle->cantidad=$cantidad[$cont];
-                $detalle->precioCompra=$precioCompra[$cont];
-                $detalle->precioVenta=$precioVenta[$cont];
+                $detalle->preciocompra=$preciocompra[$cont];
+                $detalle->precioventa=$precioventa[$cont];
                 $detalle->save();
                 $cont=$cont+1;
             }
@@ -108,10 +108,10 @@ class IngresoController extends Controller
        
 
          $detalles=DB::table('detalle_ingreso as d')
-         ->join('articulo as a','d.idArticulo','=','a.idarticulo')
-         ->select('a.nombre as articulo', 'd.cantidad', 'd.precioCompra',
-         'd.precioVenta')
-         ->where('d.idIngreso','=',$id)
+         ->join('articulo as a','d.idarticulo','=','a.idarticulo')
+         ->select('a.nombre as articulo', 'd.cantidad', 'd.preciocompra',
+         'd.precioventa')
+         ->where('d.idingreso','=',$id)
          ->get();    
          return view("compras.ingreso.show",compact('ingreso', 'detalles'));  
     }

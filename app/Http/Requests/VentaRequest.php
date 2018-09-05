@@ -24,15 +24,15 @@ class VentaRequest extends FormRequest
     public function rules()
     {
         return [            
-            'idCliente' =>'required',
-            'tipoComprovante' =>'required|max:20',
-            'serieComprovante' =>'max:7',
-            'numeroComprovante' => 'required|max:10',
-            'idArticulo' =>'required',
+            'idcliente' =>'required',
+            'tipocomprovante' =>'required|max:20',
+            'seriecomprovante' =>'max:7',
+            'numerocomprovante' => 'required|max:10',
+            'idarticulo' =>'required',
             'cantidad' =>'required',
-            'precioVenta' => 'required',
+            'precioventa' => 'required',
             'descuento'=>'required',
-            'totalVenta'=>'required',
+            'totalventa'=>'required',
         ];
     }
 }

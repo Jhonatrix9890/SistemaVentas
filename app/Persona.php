@@ -11,10 +11,10 @@ class Persona extends Model
     public $timestamps=false;
 
     protected $fillable=[
-     'tipoPersona',
+     'tipopersona',
      'nombre',
-     'tipoDocumento',
-     'numeroDocumento',
+     'tipodocumento',
+     'numerodocumento',
      'direccion',
      'telefono',
      'email',

@@ -7,7 +7,7 @@
                 <input type="hidden" name"nombre_de_campo" value="                {{$total=0}}   
                 @foreach($ingreso->detalles as $det)
 
-                {{$total=$total+($det->cantidad*$det->precioCompra)}}
+                {{$total=$total+($det->cantidad*$det->preciocompra)}}
 
                 @endforeach" />
             
@@ -21,19 +21,19 @@
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                <div class="form-group">
                   <label>Tipo de Comprobante</label>
-                   <p>{{$ingreso->tipoComprovante}}</p>
+                   <p>{{$ingreso->tipocomprovante}}</p>
               </div>
             </div>
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                  <div class="form-group">
                     <label for="serieComprobante">Serie del Comprobante</label>
-                    <p>{{$ingreso->serieComprovante}}</p>
+                    <p>{{$ingreso->seriecomprovante}}</p>
                 </div>  
             </div>
                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                    <div class="form-group">
                       <label for="num_comprobante">Numero del Comprobante</label>
-                      <p>{{$ingreso->numeroComprovante}}</p> 
+                      <p>{{$ingreso->numerocomprovante}}</p> 
                     </div>
               </div>
             </div>
@@ -62,9 +62,9 @@
                                    <tr>
                                       <td>{{$det->articulo}}</td>
                                       <td>{{$det->cantidad}}</td>
-                                      <td>{{$det->precioCompra}}</td>
-                                      <td>{{$det->precioVenta}}</td>
-                                      <td>{{$det->cantidad*$det->precioCompra}}</td>
+                                      <td>{{$det->preciocompra}}</td>
+                                      <td>{{$det->precioventa}}</td>
+                                      <td>{{$det->cantidad*$det->preciocompra}}</td>
 
                                    </tr>
                                    @endforeach

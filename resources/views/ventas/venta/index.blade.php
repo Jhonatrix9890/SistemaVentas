@@ -25,9 +25,9 @@
 				<tr>					
 					<td>{{ $ven->fechahora}}</td>
 					<td>{{ $ven->nombre}}</td>					
-					<td>{{ $ven->tipoComprovante.'-'.$ven->serieComprovante .' : '.$ven->numeroComprovante}}</td>	
+					<td>{{ $ven->tipocomprovante.'-'.$ven->seriecomprovante .' : '.$ven->numerocomprovante}}</td>	
 					<td>{{ $ven->impuesto}}</td>
-					<td>{{ $ven->totalVenta}}</td>
+					<td>{{ $ven->totalventa}}</td>
 					<td>{{ $ven->estado}}</td>
 					<td>
 					<a href="{{URL::action('VentaController@show',$ven->idventa)}}"><button class="btn btn-primary">Detalles</button></a>

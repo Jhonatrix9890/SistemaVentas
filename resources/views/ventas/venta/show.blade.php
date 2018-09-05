@@ -14,19 +14,19 @@
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                <div class="form-group">
                   <label>Tipo de Comprobante</label>
-                   <p>{{$venta->tipoComprovante}}</p>
+                   <p>{{$venta->tipocomprovante}}</p>
               </div>
             </div>
             <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                  <div class="form-group">
                     <label for="serieComprobante">Serie del Comprobante</label>
-                    <p>{{$venta->serieComprovante}}</p>
+                    <p>{{$venta->seriecomprovante}}</p>
                 </div>  
             </div>
                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                    <div class="form-group">
                       <label for="num_comprobante">Numero del Comprobante</label>
-                      <p>{{$venta->numeroComprovante}}</p> 
+                      <p>{{$venta->numerocomprovante}}</p> 
                     </div>
               </div>
             </div>
@@ -48,16 +48,16 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th><h4 id="total">$/ {{$venta->totalVenta}}</h4></th>
+                                    <th><h4 id="total">$/ {{$venta->totalventa}}</h4></th>
                                 </tfoot>
                                 <tbody>   
                                    @foreach($detalles as $det)   
                                    <tr>
                                       <td>{{$det->articulo}}</td>
                                       <td>{{$det->cantidad}}</td>
-                                      <td>{{$det->precioVenta}}</td>
+                                      <td>{{$det->precioventa}}</td>
                                       <td>{{$det->descuento}}</td>
-                                      <td>{{($det->cantidad*$det->precioVenta)-$det->descuento}}</td>
+                                      <td>{{($det->cantidad*$det->precioventa)-$det->descuento}}</td>
 
                                    </tr>
                                    @endforeach

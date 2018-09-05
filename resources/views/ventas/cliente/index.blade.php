@@ -24,8 +24,8 @@
 				<tr>
 					<td>{{ $per->idpersona}}</td>
 					<td>{{ $per->nombre}}</td>
-					<td>{{ $per->tipoDocumento}}</td>
-					<td>{{ $per->numeroDocumento}}</td>
+					<td>{{ $per->tipodocumento}}</td>
+					<td>{{ $per->numerodocumento}}</td>
 					<td>{{ $per->telefono}}</td>
 					<td>{{ $per->email}}</td>
 					<td>

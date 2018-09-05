@@ -31,9 +31,9 @@ class ClienteController extends Controller
             $query =trim($request->get('searchText'));
              $personas=DB::table('persona')
              ->where('nombre','LIKE','%'.$query.'%')
-             ->where('tipoPersona','=','Cliente')
-             ->orwhere('numeroDocumento','LIKE','%'.$query.'%')
-             ->where('tipoPersona','=','Cliente')
+             ->where('tipopersona','=','Cliente')
+             ->orwhere('numerodocumento','LIKE','%'.$query.'%')
+             ->where('tipopersona','=','Cliente')
              ->orderBy('idpersona','dec')
              ->paginate(7);
              return view('ventas.cliente.index',["personas"=>$personas, "searchText"=>$query]);
@@ -60,10 +60,10 @@ class ClienteController extends Controller
     public function store(PersonaRequest $request)
     {
         $persona=new Persona;
-        $persona->tipoPersona='Cliente';
+        $persona->tipopersona='Cliente';
         $persona->nombre=$request->get('nombre');
-        $persona->tipoDocumento=$request->get('tipoDocumento');
-        $persona->numeroDocumento=$request->get('numeroDocumento');
+        $persona->tipodocumento=$request->get('tipodocumento');
+        $persona->numerodocumento=$request->get('numerodocumento');
         $persona->direccion=$request->get('direccion');
         $persona->telefono=$request->get('telefono');
         $persona->email=$request->get('email');
@@ -108,8 +108,8 @@ class ClienteController extends Controller
     {
         $persona=Persona::findOrFail($id);
         $persona->nombre=$request->get('nombre');
-        $persona->tipoDocumento=$request->get('tipoDocumento');
-        $persona->numeroDocumento=$request->get('numeroDocumento');
+        $persona->tipodocumento=$request->get('tipodocumento');
+        $persona->numerodocumento=$request->get('numerodocumento');
         $persona->direccion=$request->get('direccion');
         $persona->email=$request->get('email');
         $persona->telefono=$request->get('telefono');
@@ -127,7 +127,7 @@ class ClienteController extends Controller
     public function destroy($id)
     {
         $persona=Persona::findOrFail($id);
-        $persona->tipoPersona='Inactivo';
+        $persona->tipopersona='Inactivo';
         $persona->update();
         return Redirect::to('ventas/persona');
     }

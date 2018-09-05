@@ -24,14 +24,14 @@ class IngresoRequest extends FormRequest
     public function rules()
     {
         return [
-            'idProveedor' =>'required',
-            'tipoComprovante' =>'required|max:20',
-            'serieComprovante' =>'max:7',
-            'numeroComprovante' => 'required|max:10',
-            'idArticulo' =>'required',
+            'idproveedor' =>'required',
+            'tipocomprovante' =>'required|max:20',
+            'seriecomprovante' =>'max:7',
+            'numerocomprovante' => 'required|max:10',
+            'idarticulo' =>'required',
             'cantidad' =>'required',
-            'precioCompra' => 'required',
-            'precioVenta'=>'required',
+            'preciocompra' => 'required',
+            'precioventa'=>'required',
 
         ];
     }

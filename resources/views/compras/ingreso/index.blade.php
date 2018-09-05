@@ -25,7 +25,7 @@
 				<tr>					
 					<td>{{ $ing->fechahora}}</td>
 					<td>{{ $ing->nombre}}</td>					
-					<td>{{ $ing->tipoComprovante.'-'.$ing->serieComprovante .' : '.$ing->numeroComprovante}}</td>	
+					<td>{{ $ing->tipocomprovante.'-'.$ing->seriecomprovante .' : '.$ing->numerocomprovante}}</td>	
 					<td>{{ $ing->impuesto}}</td>
 					<td>{{ $ing->total}}</td>
 					<td>{{ $ing->estado}}</td>
